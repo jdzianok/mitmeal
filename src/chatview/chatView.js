@@ -13,18 +13,16 @@ class ChatViewComponent extends Component {
   //   }
   // };
 
-  userHasAccepted(msg, index) {
-    this.props.userHasAcceptedFn(msg, index);
+  userHasAccepted(index) {
+    this.props.userHasAcceptedFn(index);
   }
-  //  = msg => {
-  //   console.log(msg);
+  userHasRejected(index) {
+    this.props.userHasRejectedFn(index);
+  }
 
-  //   // this.setState({ hasAccepted: true });
+  // userHasRejected = () => {
+  //   console.log("rejected");
   // };
-
-  userHasRejected = () => {
-    console.log("rejected");
-  };
 
   render() {
     const { classes, chat, user } = this.props;
@@ -73,23 +71,39 @@ class ChatViewComponent extends Component {
                   </div>
                 </div>
                 <div>
-                  {msg.sender === user ? null : (
+                  {msg.sender !== user &&
+                  !msg.hasAccepted &&
+                  !msg.hasRejected ? (
                     <>
                       <button
                         className={classes.acceptBtn}
-                        onClick={() => this.userHasAccepted(msg, index)}
+                        onClick={() => this.userHasAccepted(index)}
                       >
                         akceptuj
                       </button>
                       <button
                         className={classes.rejectBtn}
-                        onClick={this.userHasRejected}
+                        onClick={() => this.userHasRejected(index)}
                       >
                         odrzuć
                       </button>
                     </>
-                  )}
+                  ) : null}
                 </div>
+                {msg.hasAccepted === true ? (
+                  msg.sender === user ? null : (
+                    <h3 style={{ color: "green" }}>
+                      Twoja prośba została zaakceptowana
+                    </h3>
+                  )
+                ) : null}
+                {msg.hasRejected === true ? (
+                  msg.sender !== user ? null : (
+                    <h3 style={{ color: "red" }}>
+                      Twoja prośba została odrzucona
+                    </h3>
+                  )
+                ) : null}
               </div>
             ))}
           </main>

@@ -19,7 +19,14 @@ const styles = theme => ({
   //   minHeight: "0"
   // },
   acceptBtn: {
-    color: "red"
+    padding: "10px 20px",
+    margin: "10px 20px",
+    backgroundColor: "green"
+  },
+  rejectBtn: {
+    padding: "10px 20px",
+    margin: "10px 20px",
+    backgroundColor: "red"
   },
 
   userSent: {

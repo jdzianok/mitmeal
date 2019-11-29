@@ -51,6 +51,7 @@ class DashboardComponent extends Component {
         messages: firebase.firestore.FieldValue.arrayUnion({
           sender: this.state.email,
           hasAccepted: false,
+          hasRejected: false,
           myOffer: {
             item: offer.yourOffer,
             quantity: offer.quantityOffer,
@@ -117,9 +118,10 @@ class DashboardComponent extends Component {
     this.setState({ newChatFormVisible: false });
     this.selectChat(this.state.chats.length - 1);
   };
+
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(async user => {
-      if (!user) this.props.history.push("/login");
+      if (!user) this.props.history.push("/");
       else {
         await firebase
           .firestore()
@@ -127,6 +129,7 @@ class DashboardComponent extends Component {
           .where("users", "array-contains", user.email)
           .onSnapshot(async result => {
             const chats = result.docs.map(doc => doc.data());
+            console.log(chats);
             await this.setState({
               email: user.email,
               chats: chats
@@ -137,23 +140,60 @@ class DashboardComponent extends Component {
     });
   };
 
-  userHasAccepted = (msg, index) => {
-    console.log(msg);
+  userHasAccepted = index => {
     const docKey = this.buildDocKey(
       this.state.chats[this.state.selectedChat].users.filter(
         user => user !== this.state.email
       )[0]
     );
 
-    //usuwa wszytkie pola message i sender
-    // firebase
-    //     .firestore()
-    //     .collection('chats')
-    //     .doc(docKey)
-    //     .update(
-    //       { messages: index
-    //           { hasAccepted: true } , {merge: true}
-    //       );
+    firebase
+      .firestore()
+      .collection("chats")
+      .doc(docKey)
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("error");
+        } else {
+          let document = doc.data();
+          document.messages[index].hasAccepted = true;
+
+          firebase
+            .firestore()
+            .collection("chats")
+            .doc(docKey)
+            .update(document);
+        }
+      });
+  };
+
+  userHasRejected = index => {
+    const docKey = this.buildDocKey(
+      this.state.chats[this.state.selectedChat].users.filter(
+        user => user !== this.state.email
+      )[0]
+    );
+
+    firebase
+      .firestore()
+      .collection("chats")
+      .doc(docKey)
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("error");
+        } else {
+          let document = doc.data();
+          document.messages[index].hasRejected = true;
+
+          firebase
+            .firestore()
+            .collection("chats")
+            .doc(docKey)
+            .update(document);
+        }
+      });
   };
 
   render() {
@@ -179,6 +219,7 @@ class DashboardComponent extends Component {
             user={this.state.email}
             chat={this.state.chats[this.state.selectedChat]}
             userHasAcceptedFn={this.userHasAccepted}
+            userHasRejectedFn={this.userHasRejected}
           ></ChatViewComponent>
         )}
 
