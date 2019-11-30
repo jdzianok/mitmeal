@@ -3,16 +3,30 @@ import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import TextField from "@material-ui/core/TextField";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
 import styles from "./styles";
-import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import NotificationImportant from "@material-ui/icons/NotificationImportant";
+import lastExchange from "../assets/lastExchange.svg";
+import near from "../assets/wOkolicy.svg";
+import dinette from "../assets/dinette.png";
+import moa from "../assets/moa.png";
+import najadacze from "../assets/najadacze.png";
 
 class ChatListComponent extends Component {
+  state = {
+    search: ""
+  };
+
+  handleSearch = e => {
+    this.setState({
+      search: e.target.value
+    });
+  };
+
   newChat = () => {
     this.props.newChatBtnFn();
   };
@@ -29,14 +43,13 @@ class ChatListComponent extends Component {
   };
 
   render() {
-    const { classes, userEmail } = this.props;
+    const { classes } = this.props;
+
     const chatList = this.props.chats.map((chat, index) => (
       <div key={index}>
         <ListItem
           onClick={() => this.selectChat(index)}
           className={classes.listItem}
-          selected={this.props.selectedChatIndex === index}
-          alignItems="flex-start"
         >
           <ListItemAvatar>
             <Avatar alt="dziobek">
@@ -48,20 +61,19 @@ class ChatListComponent extends Component {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={
-              chat.users.filter(user => user !== this.props.userEmail)[0]
+            className={classes.ListItemText}
+            // primary={
+            //   chat.users
+            //     .filter(user => user !== this.props.userEmail)[0]
+            //     .split("@")[0]
+            // }
+          >
+            {
+              chat.users
+                .filter(user => user !== this.props.userEmail)[0]
+                .split("@")[0]
             }
-            secondary={
-              <React.Fragment>
-                <Typography component="span" color="textPrimary">
-                  {/* {chat.messages[chat.messages.length - 1].message.substring(
-                    0,
-                    30
-                  ) + "..."} */}
-                </Typography>
-              </React.Fragment>
-            }
-          />
+          </ListItemText>
           {chat.receiverHasRead === false && !this.userIsSender(chat) ? (
             <ListItemIcon>
               <NotificationImportant
@@ -70,45 +82,149 @@ class ChatListComponent extends Component {
             </ListItemIcon>
           ) : null}
         </ListItem>
-        <Divider></Divider>
       </div>
     ));
 
     if (this.props.chats.length > 0) {
       return (
         <main className={classes.root}>
-          <Typography
-            component="h1"
-            variant="h5"
-            className={classes.welcomeSign}
-          >
-            Witaj <span>{userEmail.split("@")[0]}</span>!
-          </Typography>
-          <Button
-            className={classes.newChatBtn}
-            color="primary"
-            fullWidth
-            onClick={this.newChat}
-            variant="contained"
-          >
-            New Message
-          </Button>
+          <div className={classes.search}>
+            <TextField
+              id="outlined-search"
+              label="Znajdź lokal"
+              type="search"
+              className={classes.textField}
+              variant="outlined"
+              onChange={e => this.handleSearch(e)}
+            ></TextField>
+            <Button
+              className={classes.newChatBtn}
+              onClick={this.newChat}
+              variant="contained"
+            >
+              New Message
+            </Button>
+          </div>
+          <div className={classes.lastExchange}>
+            <img src={lastExchange} alt="last" />
+            <p className={classes.paragraph}>Ostatnie wymiany</p>
+          </div>
           <List className={classes.listItemContainer}>{chatList}</List>
+          <div className={classes.nearYou}>
+            <div className={classes.lastExchange}>
+              <img src={near} alt="last" />
+              <p className={classes.paragraph}>w twojej okolicy</p>
+            </div>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar src={dinette} alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Dinette
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar src={moa} alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                MoaBurger
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Osiem Misek
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Sushi Corner
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar src={najadacze} alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Najadacze
+              </ListItemText>
+            </ListItem>
+          </div>
         </main>
       );
     } else {
       return (
         <main className={classes.root}>
-          <Button
-            className={classes.newChatBtn}
-            color="primary"
-            fullWidth
-            onClick={this.newChat}
-            variant="contained"
-          >
-            New Message
-          </Button>
+          <div className={classes.search}>
+            <TextField
+              id="outlined-search"
+              label="Znajdź lokal"
+              type="search"
+              className={classes.textField}
+              variant="outlined"
+              onChange={e => this.handleSearch(e)}
+            ></TextField>
+            <Button
+              className={classes.newChatBtn}
+              onClick={this.newChat}
+              variant="contained"
+            >
+              New Message
+            </Button>
+          </div>
           <List></List>
+          <div className={classes.nearYou}>
+            <div className={classes.lastExchange}>
+              <img src={near} alt="last" />
+              <p className={classes.paragraph}>w twojej okolicy</p>
+            </div>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Dinette
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                MoaBurger
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Osiem Misek
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Sushi Corner
+              </ListItemText>
+            </ListItem>
+            <ListItem className={classes.listItem}>
+              <ListItemAvatar>
+                <Avatar alt="dziobek"></Avatar>
+              </ListItemAvatar>
+              <ListItemText className={classes.ListItemText}>
+                Najadacze
+              </ListItemText>
+            </ListItem>
+          </div>
         </main>
       );
     }

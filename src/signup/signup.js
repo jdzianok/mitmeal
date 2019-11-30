@@ -9,6 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import background from "../assets/background_login.svg";
+import logo from "../assets/logo.svg";
 const firebase = require("firebase");
 
 class SignupComponent extends Component {
@@ -69,17 +71,31 @@ class SignupComponent extends Component {
     const { classes } = this.props;
 
     return (
-      <main className={classes.main}>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover"
+        }}
+      >
+        <div className={classes.headerWrapper}>
+          <div className={classes.imgContainer}>
+            <img src={logo} alt="logo" />
+          </div>
+        </div>
         <CssBaseline></CssBaseline>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Sign Up!
+          <Typography
+            style={{ fontSize: "24px", fontWeight: 600 }}
+            component="h1"
+            variant="h5"
+          >
+            Zarejestruj się
           </Typography>
           <form onSubmit={e => this.submitSignup(e)} className={classes.form}>
             <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="signup-email-input">
-                Enter Your Email
-              </InputLabel>
+              <InputLabel htmlFor="signup-email-input">Adres e-mail</InputLabel>
               <Input
                 onChange={e => this.userTyping("email", e)}
                 autoComplete="email"
@@ -88,9 +104,7 @@ class SignupComponent extends Component {
               />
             </FormControl>
             <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="signup-password-input">
-                Create A Password
-              </InputLabel>
+              <InputLabel htmlFor="signup-password-input">Hasło</InputLabel>
               <Input
                 type="password"
                 onChange={e => this.userTyping("password", e)}
@@ -99,7 +113,7 @@ class SignupComponent extends Component {
             </FormControl>
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="signup-password-confirmation-input">
-                Confirm Your Password
+                Powtórz hasło
               </InputLabel>
               <Input
                 type="password"
@@ -109,12 +123,11 @@ class SignupComponent extends Component {
             </FormControl>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
             >
-              Submit
+              Zarejestruj
             </Button>
           </form>
           {this.state.singupError ? (
@@ -127,17 +140,31 @@ class SignupComponent extends Component {
             </Typography>
           ) : null}
           <Typography
+            style={{
+              marginBottom: 8,
+              fontSize: 18,
+              fontWeight: 600,
+              color: "#2b2d33"
+            }}
             component="h5"
             variant="h6"
             className={classes.hasAccountHeader}
           >
-            Already Have An Account?
+            Masz już konto?
           </Typography>
-          <Link className={classes.logInLink} to="/">
-            Log In!
+          <Link
+            className={classes.logInLink}
+            style={{
+              color: "#3040cb",
+              fontSize: 16,
+              fontWeight: 600
+            }}
+            to="/"
+          >
+            Zaloguj się
           </Link>
         </Paper>
-      </main>
+      </div>
     );
   }
 }

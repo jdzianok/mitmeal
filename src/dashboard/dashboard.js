@@ -4,12 +4,16 @@ import { Button, withStyles } from "@material-ui/core";
 import ChatViewComponent from "../chatview/chatView";
 import ChatTextBoxComponent from "../chattextbox/chatTextBox";
 import NewChatComponent from "../newchat/newChat";
+import HeaderComponent from "../header/header";
+import talerz from "../assets/talerz.svg";
+import arrows from "../assets/arrows.svg";
 import styles from "./styles";
+import { fontSize } from "@material-ui/system";
 const firebase = require("firebase");
 
 class DashboardComponent extends Component {
   state = {
-    selectedChat: null,
+    selectedChat: 0,
     newChatFormVisible: false,
     email: null,
     chats: []
@@ -59,7 +63,8 @@ class DashboardComponent extends Component {
           },
           whatIWant: {
             item: offer.wantedMeal,
-            quantity: offer.howMuchIWant
+            quantity: offer.howMuchIWant,
+            priceWhatIWant: offer.priceWhatIWant
           }
         }),
         receiverHasRead: false
@@ -101,6 +106,7 @@ class DashboardComponent extends Component {
 
   newChatSubmit = async chatObj => {
     const docKey = this.buildDocKey(chatObj.sendTo);
+    console.log(chatObj.message);
     await firebase
       .firestore()
       .collection("chats")
@@ -108,7 +114,18 @@ class DashboardComponent extends Component {
       .set({
         messages: [
           {
-            message: chatObj.message,
+            hasAccepted: false,
+            hasRejected: false,
+            myOffer: {
+              item: chatObj.message.yourOffer,
+              quantity: chatObj.message.quantityOffer,
+              price: chatObj.message.priceOffer
+            },
+            whatIWant: {
+              item: chatObj.message.wantedMeal,
+              quantity: chatObj.message.howMuchIWant,
+              priceWhatIWant: chatObj.message.priceWhatIWant
+            },
             sender: this.state.email
           }
         ],
@@ -196,10 +213,18 @@ class DashboardComponent extends Component {
       });
   };
 
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.wrapper}>
+        <HeaderComponent
+          userEmail={this.state.email}
+          signOut={this.signOut}
+        ></HeaderComponent>
         <ChatListComponent
           history={this.props.history}
           newChatBtnFn={this.newChatBtnClicked}
@@ -208,30 +233,74 @@ class DashboardComponent extends Component {
           userEmail={this.state.email}
           selectedChatIndex={this.state.selectedChat}
         ></ChatListComponent>
-        {this.state.selectedChat !== null && !this.state.newChatFormVisible ? (
-          <ChatTextBoxComponent
-            submitMessageFn={this.submitMessage}
-            messageReadFn={this.messageRead}
-          ></ChatTextBoxComponent>
+        {this.state.selectedChat === null ? (
+          <div className={classes.background}>
+            <div className={classes.plateContainer}>
+              <img src={talerz} alt="talerz" />
+            </div>
+            <h1
+              style={{
+                position: "absolute",
+                top: "525px",
+                left: "50%",
+                transform: "translate(-50%)",
+                fontSize: 36,
+                color: "#2b2d33"
+              }}
+            >
+              {this.state.email === null
+                ? null
+                : this.capitalizeFirstLetter(this.state.email.split("@")[0])}
+            </h1>
+            <div
+              style={{
+                position: "absolute",
+                top: "600px",
+                left: "50%",
+                transform: "translate(-50%)",
+                fontSize: "24px",
+                width: 900,
+                fontWeight: 400,
+                textAlign: "center",
+                color: "#2b2d33"
+              }}
+            >
+              <p>W tym momencie nie masz żadnej wymiany.</p>
+              <p>Wybierz restaurację, aby złożyć ofertę.</p>
+            </div>
+          </div>
         ) : null}
-        {this.state.newChatFormVisible ? null : (
-          <ChatViewComponent
-            user={this.state.email}
-            chat={this.state.chats[this.state.selectedChat]}
-            userHasAcceptedFn={this.userHasAccepted}
-            userHasRejectedFn={this.userHasRejected}
-          ></ChatViewComponent>
-        )}
-
+        {this.state.selectedChat !== null && !this.state.newChatFormVisible ? (
+          <div className={classes.chatContainer}>
+            <div className={classes.arrowsContainer}>
+              <img src={arrows} alt="strzalki" />
+            </div>
+            {this.state.selectedChat !== null &&
+            !this.state.newChatFormVisible ? (
+              <ChatTextBoxComponent
+                chat={this.state.chats[this.state.selectedChat]}
+                user={this.state.email}
+                submitMessageFn={this.submitMessage}
+                messageReadFn={this.messageRead}
+              ></ChatTextBoxComponent>
+            ) : null}
+            {this.state.newChatFormVisible &&
+            this.state.selectedChat === null ? null : (
+              <ChatViewComponent
+                user={this.state.email}
+                chat={this.state.chats[this.state.selectedChat]}
+                userHasAcceptedFn={this.userHasAccepted}
+                userHasRejectedFn={this.userHasRejected}
+              ></ChatViewComponent>
+            )}
+          </div>
+        ) : null}
         {this.state.newChatFormVisible ? (
           <NewChatComponent
             goToChatFn={this.goToChat}
             newChatSubmitFn={this.newChatSubmit}
           ></NewChatComponent>
         ) : null}
-        <Button className={classes.signOutBtn} onClick={this.signOut}>
-          Sign Out
-        </Button>
       </div>
     );
   }

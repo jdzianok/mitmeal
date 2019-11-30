@@ -8,6 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 import styles from "./styles";
+import arrows from "../assets/arrows.svg";
 
 class ChatTextBoxComponent extends Component {
   state = {
@@ -15,7 +16,8 @@ class ChatTextBoxComponent extends Component {
     quantityOffer: null,
     priceOffer: null,
     wantedMeal: null,
-    howMuchIWant: null
+    howMuchIWant: null,
+    priceWhatIWant: null
   };
 
   userTyping = (type, e) => {
@@ -29,6 +31,8 @@ class ChatTextBoxComponent extends Component {
       this.setState({ wantedMeal: e.target.value });
     } else if (type === "howMuchIWant") {
       this.setState({ howMuchIWant: e.target.value });
+    } else if (type === "priceWhatIWant") {
+      this.setState({ priceWhatIWant: e.target.value });
     }
   };
 
@@ -38,20 +42,34 @@ class ChatTextBoxComponent extends Component {
     // document.getElementById("chattextbox").value = "";
   };
 
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, user, chat } = this.props;
     return (
       <div className={classes.chatTextBoxContainer}>
+        <h1 className={classes.headerEx}>
+          Twoja wymiana z{" "}
+          {chat !== undefined ? (
+            <span className={classes.spanUser}>
+              {this.capitalizeFirstLetter(
+                chat.users.filter(usr => usr !== user)[0].split("@")[0]
+              )}
+            </span>
+          ) : null}
+        </h1>
         <form
           onSubmit={e => this.submitMessage(e)}
           className={classes.offerForm}
         >
           <div className={classes.yourOffer}>
             <Typography component="h1" variant="h5">
-              What Do You Offer?
+              Co oferujesz?
             </Typography>
             <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="what-i-offer">Enter Your Offer</InputLabel>
+              <InputLabel htmlFor="what-i-offer">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("yourOffer", e)}
                 type="text"
@@ -59,56 +77,68 @@ class ChatTextBoxComponent extends Component {
                 id="what-i-offer"
               />
             </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="how-much-i-offer">Enter Quantity</InputLabel>
-              <Input
-                onChange={e => this.userTyping("quantityOffer", e)}
-                type="number"
-                id="how-much-i-offer"
-              />
-            </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="price">Enter Price</InputLabel>
-              <Input
-                onChange={e => this.userTyping("priceOffer", e)}
-                type="number"
-                id="price"
-              />
-            </FormControl>
+            <div className={classes.priceQty}>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="how-much-i-offer">Ilość</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("quantityOffer", e)}
+                  type="number"
+                  id="how-much-i-offer"
+                  style={{ marginRight: "40px" }}
+                />
+              </FormControl>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="price">Wartość zamówienia</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("priceOffer", e)}
+                  type="number"
+                  id="price"
+                />
+              </FormControl>
+            </div>
           </div>
           <div className={classes.youWant}>
             <Typography component="h1" variant="h5">
-              What Do You Want In Exchange?
+              Co chcesz w zamian?
             </Typography>
             <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="what-i-want">
-                Enter Your Wanted Meal
-              </InputLabel>
+              <InputLabel htmlFor="what-i-want">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("wantedMeal", e)}
                 type="text"
                 id="what-i-want"
               />
             </FormControl>
-            <FormControl required fullWidth margin="normal">
-              <InputLabel htmlFor="how-much-do-i-want">
-                Enter Quantity
-              </InputLabel>
-              <Input
-                onChange={e => this.userTyping("howMuchIWant", e)}
-                type="number"
-                id="how-much-do-i-want"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submitOffer}
-            >
-              Submit Your Offer
-            </Button>
+            <div className={classes.priceQty}>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="how-much-do-i-want">Ilość</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("howMuchIWant", e)}
+                  type="number"
+                  id="how-much-do-i-want"
+                  style={{ marginRight: "40px" }}
+                />
+              </FormControl>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="priceWhatIWant">
+                  Wartość zamówienia
+                </InputLabel>
+                <Input
+                  onChange={e => this.userTyping("priceWhatIWant", e)}
+                  type="number"
+                  id="priceWhatIWant"
+                />
+              </FormControl>
+            </div>
           </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submitOffer}
+          >
+            wyślij ofertę
+          </Button>
         </form>
       </div>
     );

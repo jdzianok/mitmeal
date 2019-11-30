@@ -1,34 +1,76 @@
 const styles = theme => ({
-  main: {
-    width: "auto",
-    display: "block",
-    marginLeft: theme.spacing() * 3,
-    marginRight: theme.spacing() * 3,
-    [theme.breakpoints.up(400 + theme.spacing() * 2 * 3)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto"
+  sendBtn: {
+    color: "blue",
+    cursor: "pointer",
+    "&:hover": {
+      color: "gray"
     }
   },
-  paper: {
-    padding: `${theme.spacing() * 2}px ${theme.spacing() *
-      3}px ${theme.spacing() * 3}px`,
+  chatTextBoxContainer: {
     position: "absolute",
-    width: "350px",
-    top: "50px",
-    left: "calc(50% + 150px - 175px)"
+    top: "70px",
+    left: "350px",
+    width: "calc(100% - 350px)",
+    height: "calc(100vh - 70px)",
+    backgroundImage: "linear-gradient(to top, #e4ecff, #eff4ff)"
   },
-  input: {},
-  form: {
+  arrowsContainer: {
+    position: "absolute",
+    top: "200px",
+    left: "50%",
+    transform: "translate(-50%)"
+  },
+
+  offerForm: {
     width: "100%",
-    marginTop: theme.spacing()
+    paddingBottom: theme.spacing(6),
+    display: "flex",
+    justifyContent: "space-around"
   },
-  submit: {
-    marginTop: theme.spacing() * 3
+  yourOffer: {
+    backgroundColor: "rgba(255, 255, 255, .8)",
+    padding: "35px",
+    zIndex: "2",
+    borderRadius: "15px"
   },
-  errorText: {
-    color: "red",
-    textAlign: "center"
+  youWant: {
+    backgroundColor: "rgba(255, 255, 255, .8)",
+    padding: "25px",
+    zIndex: "2",
+    borderRadius: "15px"
+  },
+  priceQty: {
+    display: "flex"
+  },
+  submitOffer: {
+    display: "block",
+    position: "absolute",
+    top: "470px",
+    left: "50%",
+    transform: "translate(-50%)",
+    padding: "10px 20px",
+    borderRadius: "30px",
+    height: "50px",
+    fontSize: "14px",
+    letterSpacing: "2px",
+    backgroundColor: "#3040cb",
+    color: "#fff",
+    width: "280px"
+  },
+  headerEx: {
+    fontWeight: "400",
+    padding: "70px 0 50px 5%",
+    fontSize: "40px"
+  },
+  spanUser: {
+    fontWeight: "600"
+  },
+
+  input: {
+    position: "absolute",
+    top: "50px",
+    left: "50%",
+    transform: "translate(-50%)"
   }
 });
 

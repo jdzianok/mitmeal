@@ -3,9 +3,9 @@ import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 
 class ChatViewComponent extends Component {
-  state = {
-    hasAccepted: false
-  };
+  // state = {
+  //   hasAccepted: false
+  // };
   // componentDidUpdate = () => {
   //   const container = document.getElementById("chatview-container");
   //   if (container) {
@@ -20,29 +20,24 @@ class ChatViewComponent extends Component {
     this.props.userHasRejectedFn(index);
   }
 
-  // userHasRejected = () => {
-  //   console.log("rejected");
-  // };
-
   render() {
     const { classes, chat, user } = this.props;
 
     if (chat === undefined) {
-      return <main id="chatview-container" className={classes.content}></main>;
+      return null;
     } else {
       return (
         <div>
-          <div className={classes.chatHeader}>
-            Your conversation with {chat.users.filter(usr => usr !== user)[0]}
-          </div>
           <main id="chatview-container" className={classes.content}>
             {chat.messages.map((msg, index) => (
-              <div
-                key={index}
-                className={
-                  msg.sender === user ? classes.userSent : classes.friendSent
-                }
-              >
+              // <div  key={index}
+              // className={
+              //   classes.message
+              // }>
+
+              // </div>
+
+              <div key={index} className={classes.message}>
                 {msg.sender !== user ? (
                   <h2>{msg.sender.split("@")[0]} chce się z Tobą wymienić</h2>
                 ) : null}

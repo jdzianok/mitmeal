@@ -6,29 +6,55 @@ const styles = theme => ({
       color: "gray"
     }
   },
-
   chatTextBoxContainer: {
-    position: "fixed",
-    top: "50px",
-    left: "301px",
-    boxSizing: "border-box",
-    width: "calc(100% - 300px)",
-    height: "300px"
+    width: "100%",
+    height: "550px"
+    // backgroundImage: "linear-gradient(to top, #e4ecff, #eff4ff)"
   },
 
-  chatTextBox: {
-    width: "calc(100% - 25px)"
-  },
   offerForm: {
     width: "100%",
-    marginTop: theme.spacing(1),
     paddingBottom: theme.spacing(6),
     display: "flex",
     justifyContent: "space-around"
   },
+  yourOffer: {
+    backgroundColor: "rgba(255, 255, 255, .8)",
+    padding: "35px",
+    zIndex: "2",
+    borderRadius: "15px"
+  },
+  youWant: {
+    backgroundColor: "rgba(255, 255, 255, .8)",
+    padding: "25px",
+    zIndex: "2",
+    borderRadius: "15px"
+  },
+  priceQty: {
+    display: "flex"
+  },
   submitOffer: {
-    marginTop: "20px",
-    padding: "10px 20px"
+    display: "block",
+    position: "absolute",
+    top: "470px",
+    left: "50%",
+    transform: "translate(-50%)",
+    padding: "10px 20px",
+    borderRadius: "30px",
+    height: "50px",
+    fontSize: "14px",
+    letterSpacing: "2px",
+    backgroundColor: "#3040cb",
+    color: "#fff",
+    width: "280px"
+  },
+  headerEx: {
+    fontWeight: "400",
+    padding: "70px 0 50px 5%",
+    fontSize: "40px"
+  },
+  spanUser: {
+    fontWeight: "600"
   }
 });
 

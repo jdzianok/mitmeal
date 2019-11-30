@@ -1,36 +1,49 @@
 import React, { Component } from "react";
 import {
+  withStyles,
+  Typography,
   FormControl,
   InputLabel,
   Input,
-  Button,
-  Paper,
-  withStyles,
-  CssBaseline,
-  Typography
+  Button
 } from "@material-ui/core";
 import styles from "./styles";
+import arrows from "../assets/arrows.svg";
+
 const firebase = require("firebase");
 
 class NewChatComponent extends Component {
   state = {
     username: null,
-    message: null
+    yourOffer: null,
+    quantityOffer: null,
+    priceOffer: null,
+    wantedMeal: null,
+    howMuchIWant: null,
+    priceWhatIWant: null
   };
+
   userTyping = (type, e) => {
-    if (type === "username") {
-      this.setState({
-        username: e.target.value
-      });
-    } else if (type === "message") {
-      this.setState({
-        message: e.target.value
-      });
+    if (type === "yourOffer") {
+      this.setState({ yourOffer: e.target.value });
+    } else if (type === "quantityOffer") {
+      this.setState({ quantityOffer: e.target.value });
+    } else if (type === "priceOffer") {
+      this.setState({ priceOffer: e.target.value });
+    } else if (type === "wantedMeal") {
+      this.setState({ wantedMeal: e.target.value });
+    } else if (type === "howMuchIWant") {
+      this.setState({ howMuchIWant: e.target.value });
+    } else if (type === "priceWhatIWant") {
+      this.setState({ priceWhatIWant: e.target.value });
+    } else if (type === "username") {
+      this.setState({ username: e.target.value });
     }
   };
 
   submitNewChat = async e => {
     e.preventDefault();
+    console.log(this.state.message);
     const userExists = await this.userExists();
     if (userExists) {
       const chatExists = await this.chatExists();
@@ -41,7 +54,7 @@ class NewChatComponent extends Component {
   createChat = () => {
     this.props.newChatSubmitFn({
       sendTo: this.state.username,
-      message: this.state.message
+      message: this.state
     });
   };
 
@@ -81,57 +94,102 @@ class NewChatComponent extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <main className={classes.main}>
-        <CssBaseline></CssBaseline>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Send A Message!
-          </Typography>
-          <form className={classes.form} onSubmit={e => this.submitNewChat(e)}>
-            <FormControl fullWidth>
-              <InputLabel htmlFor="new-chat-username">
-                Enter Your Friend's Email
-              </InputLabel>
-              <Input
-                required
-                className={classes.input}
-                autoFocus
-                onChange={e => this.userTyping("username", e)}
-                id="new-chat-username"
-              ></Input>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel htmlFor="new-chat-message">
-                Enter Your Message
-              </InputLabel>
-              <Input
-                required
-                className={classes.input}
-                onChange={e => this.userTyping("message", e)}
-                id="new-chat-message"
-              ></Input>
-            </FormControl>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              type="submit"
-            >
-              Send
-            </Button>
-          </form>
-          {this.state.serverError ? (
-            <Typography
-              component="h5"
-              variant="h6"
-              className={classes.errorText}
-            >
-              Unable to locate the user
+      <div className={classes.chatTextBoxContainer}>
+        <div className={classes.arrowsContainer}>
+          <img src={arrows} alt="strzalki" />
+        </div>
+        <h1 className={classes.headerEx}></h1>
+        <form
+          onSubmit={e => this.submitNewChat(e)}
+          className={classes.offerForm}
+        >
+          <FormControl className={classes.input}>
+            <InputLabel htmlFor="new-chat-username">
+              Wpisz email nowej restauracji
+            </InputLabel>
+            <Input
+              required
+              autoFocus
+              onChange={e => this.userTyping("username", e)}
+              id="new-chat-username"
+            ></Input>
+          </FormControl>
+          <div className={classes.yourOffer}>
+            <Typography component="h1" variant="h5">
+              Co oferujesz?
             </Typography>
-          ) : null}
-        </Paper>
-      </main>
+            <FormControl required fullWidth margin="normal">
+              <InputLabel htmlFor="what-i-offer">Nazwa dania</InputLabel>
+              <Input
+                onChange={e => this.userTyping("yourOffer", e)}
+                type="text"
+                id="what-i-offer"
+              />
+            </FormControl>
+            <div className={classes.priceQty}>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="how-much-i-offer">Ilość</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("quantityOffer", e)}
+                  type="number"
+                  id="how-much-i-offer"
+                  style={{ marginRight: "40px" }}
+                />
+              </FormControl>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="price">Wartość zamówienia</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("priceOffer", e)}
+                  type="number"
+                  id="price"
+                />
+              </FormControl>
+            </div>
+          </div>
+          <div className={classes.youWant}>
+            <Typography component="h1" variant="h5">
+              Co chcesz w zamian?
+            </Typography>
+            <FormControl required fullWidth margin="normal">
+              <InputLabel htmlFor="what-i-want">Nazwa dania</InputLabel>
+              <Input
+                onChange={e => this.userTyping("wantedMeal", e)}
+                type="text"
+                id="what-i-want"
+              />
+            </FormControl>
+            <div className={classes.priceQty}>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="how-much-do-i-want">Ilość</InputLabel>
+                <Input
+                  onChange={e => this.userTyping("howMuchIWant", e)}
+                  type="number"
+                  id="how-much-do-i-want"
+                  style={{ marginRight: "40px" }}
+                />
+              </FormControl>
+              <FormControl required margin="normal">
+                <InputLabel htmlFor="priceWhatIWant">
+                  Wartość zamówienia
+                </InputLabel>
+                <Input
+                  onChange={e => this.userTyping("priceWhatIWant", e)}
+                  type="number"
+                  id="priceWhatIWant"
+                />
+              </FormControl>
+            </div>
+          </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submitOffer}
+          >
+            wyślij ofertę
+          </Button>
+        </form>
+      </div>
     );
   }
 }
