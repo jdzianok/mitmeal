@@ -39,7 +39,6 @@ class ChatTextBoxComponent extends Component {
   submitMessage = e => {
     e.preventDefault();
     this.props.submitMessageFn(this.state);
-    // document.getElementById("chattextbox").value = "";
   };
 
   capitalizeFirstLetter = string => {

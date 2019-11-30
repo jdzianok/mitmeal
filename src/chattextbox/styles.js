@@ -9,7 +9,6 @@ const styles = theme => ({
   chatTextBoxContainer: {
     width: "100%",
     height: "550px"
-    // backgroundImage: "linear-gradient(to top, #e4ecff, #eff4ff)"
   },
 
   offerForm: {

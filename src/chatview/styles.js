@@ -2,48 +2,79 @@ const styles = theme => ({
   content: {
     height: "calc(100vh - 550px - 70px)",
     minHeight: "calc(100vh - 550px - 70px)",
-
-    // overflow: "auto",
-    // padding: "25px",
-    // marginLeft: "350px",
-    // marginTop: "620px",
     boxSizing: "border-box",
-    // overflowY: "scroll",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column-reverse",
-    alignItems: "center",
-    justifyContent: "flex-end"
-  },
-  scroll: {
-    flex: 8,
     overflowY: "scroll",
     width: "100%",
-    height: "calc(100vh - 550px - 70px)"
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
-  // overflowWrapper: {
-  //   minHeight: "0"
-  // },
   acceptBtn: {
-    padding: "10px 20px",
-    margin: "10px 20px",
-    backgroundColor: "green"
+    width: "121px",
+    height: "32px",
+    borderRadius: "200px",
+    border: "solid 1px #00c1db",
+    backgroundColor: "rgba(0, 193, 219, 0.16)",
+    color: "#00a1b7",
+    textTransform: "uppercase",
+    letterSpacing: "1.2px",
+    marginRight: "16px"
   },
   rejectBtn: {
-    padding: "10px 20px",
-    margin: "10px 20px",
-    backgroundColor: "red"
+    width: "102px",
+    height: "32px",
+    borderRadius: "200px",
+    border: "solid 1px #3040cb",
+    textTransform: "uppercase",
+    color: "#3040cb",
+    letterSpacing: "1.2px"
   },
 
   message: {
-    padding: "20px",
-    boxSizing: "border-box",
-    wordWrap: "break-word",
-    marginTop: "10px",
-    backgroundColor: "#03396c",
-    color: "white",
-    width: "70%",
-    borderRadius: "10px"
+    display: "flex",
+    minHeight: "160px",
+    minWidth: "840px",
+    margin: "20px 0",
+    backgroundColor: "#fff",
+    width: "50%",
+    borderRadius: "20px"
+  },
+  left: {
+    width: "50%",
+    padding: "30px 20px 20px 30px",
+    display: "flex",
+    borderRight: "1px solid #d8e3fa"
+  },
+  right: {
+    padding: "30px 0 0 30px",
+    width: "50%"
+  },
+  icon: {
+    margin: "2px 30px 0 0"
+  },
+  firstP: {
+    fontSize: "16px",
+    fontWeight: 600,
+    marginBottom: "15px",
+    lineHeight: "24px"
+  },
+  secondP: {
+    color: "#686868",
+    lineHeight: "21px"
+  },
+  thirdP: {
+    fontWeight: 600,
+    fontSize: "16px",
+    marginBottom: "17px"
+  },
+  fourthP: {
+    marginLeft: 10
+  },
+
+  offerExchange: {
+    display: "flex",
+    fontSize: "16px",
+    marginBottom: "10px"
   }
 });
 

@@ -8,6 +8,7 @@ import styles from "./styles";
 import logo from "../assets/logo.svg";
 import bell from "../assets/bell.svg";
 import settings from "../assets/settings.svg";
+import hoshi from "../assets/hoshi.png";
 
 class HeaderComponent extends Component {
   state = {
@@ -15,9 +16,13 @@ class HeaderComponent extends Component {
   };
 
   handleShow = () => {
-    // document.querySelector("#dropdown").style.display = "block";
     this.setState({ active: !this.state.active });
   };
+
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   render() {
     const { classes, userEmail } = this.props;
     return (
@@ -28,16 +33,17 @@ class HeaderComponent extends Component {
         <div className={classes.user}>
           <ListItem>
             <ListItemAvatar>
-              <Avatar alt="dziobek">
-                {/* {
-                chat.users
-                  .filter(user => user !== this.props.userEmail)[0]
-                  .split("")[0]
-              } */}
-              </Avatar>
+              <Avatar
+                src={userEmail === "hoshi@hoshi.pl" && hoshi}
+                alt="dziobek"
+              ></Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={userEmail === null ? userEmail : userEmail.split("@")[0]}
+              primary={
+                userEmail === null
+                  ? userEmail
+                  : this.capitalizeFirstLetter(userEmail.split("@")[0])
+              }
             />
           </ListItem>
         </div>
@@ -49,7 +55,9 @@ class HeaderComponent extends Component {
           <div
             className={classes.dropdown}
             style={
-              this.state.active ? { display: "block" } : { display: "none" }
+              this.state.active
+                ? { display: "block", zIndex: 2 }
+                : { display: "none" }
             }
             id="dropdown"
           >

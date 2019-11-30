@@ -98,22 +98,24 @@ class NewChatComponent extends Component {
         <div className={classes.arrowsContainer}>
           <img src={arrows} alt="strzalki" />
         </div>
-        <h1 className={classes.headerEx}></h1>
+
         <form
           onSubmit={e => this.submitNewChat(e)}
           className={classes.offerForm}
         >
-          <FormControl className={classes.input}>
-            <InputLabel htmlFor="new-chat-username">
-              Wpisz email nowej restauracji
-            </InputLabel>
-            <Input
-              required
-              autoFocus
-              onChange={e => this.userTyping("username", e)}
-              id="new-chat-username"
-            ></Input>
-          </FormControl>
+          <div className={classes.newFriend}>
+            <FormControl className={classes.input}>
+              <InputLabel htmlFor="new-chat-username">
+                Wpisz email nowej restauracji
+              </InputLabel>
+              <Input
+                required
+                autoFocus
+                onChange={e => this.userTyping("username", e)}
+                id="new-chat-username"
+              ></Input>
+            </FormControl>
+          </div>
           <div className={classes.yourOffer}>
             <Typography component="h1" variant="h5">
               Co oferujesz?

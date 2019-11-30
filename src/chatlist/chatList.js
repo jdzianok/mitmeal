@@ -15,6 +15,8 @@ import near from "../assets/wOkolicy.svg";
 import dinette from "../assets/dinette.png";
 import moa from "../assets/moa.png";
 import najadacze from "../assets/najadacze.png";
+import osiemMisek from "../assets/osiemMisek.png";
+import sushiCorner from "../assets/sushiCorner.png";
 
 class ChatListComponent extends Component {
   state = {
@@ -42,6 +44,10 @@ class ChatListComponent extends Component {
     );
   };
 
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -53,11 +59,11 @@ class ChatListComponent extends Component {
         >
           <ListItemAvatar>
             <Avatar alt="dziobek">
-              {
+              {this.capitalizeFirstLetter(
                 chat.users
                   .filter(user => user !== this.props.userEmail)[0]
                   .split("")[0]
-              }
+              )}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
@@ -68,11 +74,11 @@ class ChatListComponent extends Component {
             //     .split("@")[0]
             // }
           >
-            {
+            {this.capitalizeFirstLetter(
               chat.users
                 .filter(user => user !== this.props.userEmail)[0]
                 .split("@")[0]
-            }
+            )}
           </ListItemText>
           {chat.receiverHasRead === false && !this.userIsSender(chat) ? (
             <ListItemIcon>
@@ -133,7 +139,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={osiemMisek} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Osiem Misek
@@ -141,7 +147,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={sushiCorner} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Sushi Corner

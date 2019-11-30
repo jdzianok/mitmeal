@@ -1,11 +1,4 @@
 const styles = theme => ({
-  sendBtn: {
-    color: "blue",
-    cursor: "pointer",
-    "&:hover": {
-      color: "gray"
-    }
-  },
   chatTextBoxContainer: {
     position: "absolute",
     top: "70px",
@@ -23,6 +16,7 @@ const styles = theme => ({
 
   offerForm: {
     width: "100%",
+    marginTop: "190px",
     paddingBottom: theme.spacing(6),
     display: "flex",
     justifyContent: "space-around"
@@ -33,6 +27,17 @@ const styles = theme => ({
     zIndex: "2",
     borderRadius: "15px"
   },
+  newFriend: {
+    position: "absolute",
+    top: "50px",
+    left: "50%",
+    transform: "translate(-50%)",
+    backgroundColor: "rgba(255, 255, 255, .8)",
+    padding: "35px",
+    zIndex: "2",
+    borderRadius: "15px"
+  },
+
   youWant: {
     backgroundColor: "rgba(255, 255, 255, .8)",
     padding: "25px",
@@ -67,10 +72,7 @@ const styles = theme => ({
   },
 
   input: {
-    position: "absolute",
-    top: "50px",
-    left: "50%",
-    transform: "translate(-50%)"
+    width: 250
   }
 });
 

@@ -4,7 +4,9 @@ const styles = theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "70px"
+    height: "70px",
+    backgroundColor: "#fff",
+    zIndex: 2
   },
   imgContainer: {
     marginLeft: "25px",

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ChatListComponent from "../chatlist/chatList";
-import { Button, withStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import ChatViewComponent from "../chatview/chatView";
 import ChatTextBoxComponent from "../chattextbox/chatTextBox";
 import NewChatComponent from "../newchat/newChat";
@@ -8,12 +8,11 @@ import HeaderComponent from "../header/header";
 import talerz from "../assets/talerz.svg";
 import arrows from "../assets/arrows.svg";
 import styles from "./styles";
-import { fontSize } from "@material-ui/system";
 const firebase = require("firebase");
 
 class DashboardComponent extends Component {
   state = {
-    selectedChat: 0,
+    selectedChat: null,
     newChatFormVisible: false,
     email: null,
     chats: []
