@@ -192,7 +192,7 @@ class ChatListComponent extends Component {
             </div>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={dinette} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Dinette
@@ -200,7 +200,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={moa} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 MoaBurger
@@ -208,7 +208,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={osiemMisek} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Osiem Misek
@@ -216,7 +216,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={sushiCorner} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Sushi Corner
@@ -224,7 +224,7 @@ class ChatListComponent extends Component {
             </ListItem>
             <ListItem className={classes.listItem}>
               <ListItemAvatar>
-                <Avatar alt="dziobek"></Avatar>
+                <Avatar src={najadacze} alt="dziobek"></Avatar>
               </ListItemAvatar>
               <ListItemText className={classes.ListItemText}>
                 Najadacze
