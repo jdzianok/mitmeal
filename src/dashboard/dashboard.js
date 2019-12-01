@@ -27,7 +27,8 @@ class DashboardComponent extends Component {
 
   selectChat = async chatIndex => {
     await this.setState({
-      selectedChat: chatIndex
+      selectedChat: chatIndex,
+      newChatFormVisible: false
     });
 
     this.messageRead();
@@ -294,7 +295,7 @@ class DashboardComponent extends Component {
             )}
           </div>
         ) : null}
-        {this.state.newChatFormVisible ? (
+        {this.state.newChatFormVisible && this.state.selectedChat === null ? (
           <NewChatComponent
             goToChatFn={this.goToChat}
             newChatSubmitFn={this.newChatSubmit}
