@@ -8,7 +8,6 @@ import {
   Button
 } from "@material-ui/core";
 import styles from "./styles";
-import arrows from "../assets/arrows.svg";
 
 class ChatTextBoxComponent extends Component {
   state = {

@@ -17,6 +17,10 @@ import moa from "../assets/moa.png";
 import najadacze from "../assets/najadacze.png";
 import osiemMisek from "../assets/osiemMisek.png";
 import sushiCorner from "../assets/sushiCorner.png";
+import hoshi from "../assets/hoshi.png";
+import pasibus from "../assets/pasibus.png";
+import vaffanapoli from "../assets/vaffanapoli.png";
+import michal from "../assets/michal.png";
 
 class ChatListComponent extends Component {
   state = {
@@ -58,7 +62,28 @@ class ChatListComponent extends Component {
           className={classes.listItem}
         >
           <ListItemAvatar>
-            <Avatar alt="dziobek">
+            <Avatar
+              src={
+                chat.users
+                  .filter(user => user !== this.props.userEmail)[0]
+                  .split("@")[0] === "pasibus"
+                  ? pasibus
+                  : chat.users
+                      .filter(user => user !== this.props.userEmail)[0]
+                      .split("@")[0] === "vaffanapoli"
+                  ? vaffanapoli
+                  : chat.users
+                      .filter(user => user !== this.props.userEmail)[0]
+                      .split("@")[0] === "hoshi"
+                  ? hoshi
+                  : chat.users
+                      .filter(user => user !== this.props.userEmail)[0]
+                      .split("@")[0] === "michal"
+                  ? michal
+                  : null
+              }
+              alt="dziobek"
+            >
               {this.capitalizeFirstLetter(
                 chat.users
                   .filter(user => user !== this.props.userEmail)[0]

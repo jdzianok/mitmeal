@@ -9,6 +9,8 @@ import logo from "../assets/logo.svg";
 import bell from "../assets/bell.svg";
 import settings from "../assets/settings.svg";
 import hoshi from "../assets/hoshi.png";
+import michal from "../assets/michal.png";
+import pasibus from "../assets/pasibus.png";
 
 class HeaderComponent extends Component {
   state = {
@@ -34,7 +36,15 @@ class HeaderComponent extends Component {
           <ListItem>
             <ListItemAvatar>
               <Avatar
-                src={userEmail === "hoshi@hoshi.pl" && hoshi}
+                src={
+                  userEmail === "hoshi@hoshi.pl"
+                    ? hoshi
+                    : userEmail === "pasibus@pasibus.pl"
+                    ? pasibus
+                    : userEmail === "michal@tymula.pl"
+                    ? michal
+                    : null
+                }
                 alt="dziobek"
               ></Avatar>
             </ListItemAvatar>
