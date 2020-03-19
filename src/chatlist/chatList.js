@@ -42,7 +42,7 @@ class ChatListComponent extends Component {
   };
 
   userIsSender = chat => {
-    console.log(chat);
+    // console.log(chat);
     return (
       chat.messages[chat.messages.length - 1].sender === this.props.userEmail
     );
@@ -91,14 +91,7 @@ class ChatListComponent extends Component {
               )}
             </Avatar>
           </ListItemAvatar>
-          <ListItemText
-            className={classes.ListItemText}
-            // primary={
-            //   chat.users
-            //     .filter(user => user !== this.props.userEmail)[0]
-            //     .split("@")[0]
-            // }
-          >
+          <ListItemText className={classes.ListItemText}>
             {this.capitalizeFirstLetter(
               chat.users
                 .filter(user => user !== this.props.userEmail)[0]
@@ -133,7 +126,7 @@ class ChatListComponent extends Component {
               onClick={this.newChat}
               variant="contained"
             >
-              New Message
+              Nowa wiadomość
             </Button>
           </div>
           <div className={classes.lastExchange}>
@@ -206,7 +199,7 @@ class ChatListComponent extends Component {
               onClick={this.newChat}
               variant="contained"
             >
-              New Message
+              Nowa wiadomość
             </Button>
           </div>
           <List></List>

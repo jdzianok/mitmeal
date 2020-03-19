@@ -22,7 +22,6 @@ const styles = theme => ({
     alignItems: "center",
     padding: "50px 60px",
     width: "400px",
-    height: "500px",
     borderRadius: "20px",
     backgroundColor: "rgba(255,255,255, 0.9)"
   },
@@ -49,7 +48,8 @@ const styles = theme => ({
   },
   errorText: {
     color: "red",
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: "12px"
   }
 });
 

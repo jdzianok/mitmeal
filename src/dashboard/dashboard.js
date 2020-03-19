@@ -106,7 +106,7 @@ class DashboardComponent extends Component {
 
   newChatSubmit = async chatObj => {
     const docKey = this.buildDocKey(chatObj.sendTo);
-    console.log(chatObj.message);
+    // console.log(chatObj.message);
     await firebase
       .firestore()
       .collection("chats")
@@ -146,12 +146,12 @@ class DashboardComponent extends Component {
           .where("users", "array-contains", user.email)
           .onSnapshot(async result => {
             const chats = result.docs.map(doc => doc.data());
-            console.log(chats);
+            // console.log(chats);
             await this.setState({
               email: user.email,
               chats: chats
             });
-            console.log(this.state);
+            // console.log(this.state);
           });
       }
     });

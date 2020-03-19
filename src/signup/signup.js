@@ -15,47 +15,77 @@ const firebase = require("firebase");
 
 class SignupComponent extends Component {
   state = {
-    email: null,
-    password: null,
-    passwordConfirmation: null,
-    singupError: ""
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    passwordError: "",
+    emailError: "",
+    passwordConfirmationError: ""
   };
 
-  formIsValid = () => this.state.password === this.state.passwordConfirmation;
+  validate = () => {
+    this.setState({
+      passwordError: "",
+      emailError: "",
+      passwordConfirmationError: ""
+    });
+    let emailError = "";
+    let passwordError = "";
+    let passwordConfirmationError = "";
+
+    if (!this.state.email.includes("@") && this.state.email.length < 4) {
+      emailError = "Niepoprawny email";
+    }
+
+    if (this.state.password.lenght < 5) {
+      passwordError = "Za krótkie hasło";
+    }
+
+    if (this.state.password !== this.state.passwordConfirmation) {
+      passwordConfirmationError = "Hasła nie są jednakowe";
+    }
+
+    if (emailError || passwordError || passwordConfirmationError) {
+      this.setState({ emailError, passwordError, passwordConfirmationError });
+      return false;
+    }
+
+    return true;
+  };
 
   submitSignup = e => {
     e.preventDefault();
-    if (!this.formIsValid()) {
-      this.setState({
-        singupError: "Passwords do not match!"
-      });
-      return;
-    }
-
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(authResponse => {
-        const userObj = {
-          email: authResponse.user.email
-        };
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(this.state.email)
-          .set(userObj)
-          .then(() => {
-            this.props.history.push("/dashboard");
-          })
-          .catch(dbError => {
-            console.log(dbError);
-            this.setState({ singupError: "Faild to add user" });
+    const isValid = this.validate();
+    if (isValid) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(authResponse => {
+          const userObj = {
+            email: authResponse.user.email
+          };
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(this.state.email)
+            .set(userObj)
+            .then(() => {
+              this.props.history.push("/dashboard");
+            })
+            .catch(dbError => {
+              console.log(dbError);
+              this.setState({
+                passwordConfirmationError: "Błąd w rejestracji użytkownika"
+              });
+            });
+        })
+        .catch(authError => {
+          console.log(authError);
+          this.setState({
+            passwordConfirmationError: "Błąd w rejestracji użytkownika"
           });
-      })
-      .catch(authError => {
-        console.log(authError);
-        this.setState({ singupError: "Faild to add user" });
-      });
+        });
+    } else return;
   };
 
   userTyping = (type, e) => {
@@ -103,6 +133,15 @@ class SignupComponent extends Component {
                 id="signup-email-input"
               />
             </FormControl>
+            {this.state.emailError ? (
+              <Typography
+                className={classes.errorText}
+                component="h5"
+                variant="h6"
+              >
+                {this.state.emailError}
+              </Typography>
+            ) : null}
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="signup-password-input">Hasło</InputLabel>
               <Input
@@ -111,6 +150,15 @@ class SignupComponent extends Component {
                 id="signup-password-input"
               />
             </FormControl>
+            {this.state.passwordError ? (
+              <Typography
+                className={classes.errorText}
+                component="h5"
+                variant="h6"
+              >
+                {this.state.passwordError}
+              </Typography>
+            ) : null}
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="signup-password-confirmation-input">
                 Powtórz hasło
@@ -121,6 +169,15 @@ class SignupComponent extends Component {
                 id="signup-password-confirmation-input"
               />
             </FormControl>
+            {this.state.passwordConfirmationError ? (
+              <Typography
+                className={classes.errorText}
+                component="h5"
+                variant="h6"
+              >
+                {this.state.passwordConfirmationError}
+              </Typography>
+            ) : null}
             <Button
               type="submit"
               variant="contained"
@@ -130,15 +187,7 @@ class SignupComponent extends Component {
               Zarejestruj
             </Button>
           </form>
-          {this.state.singupError ? (
-            <Typography
-              className={classes.errorText}
-              component="h5"
-              variant="h6"
-            >
-              {this.state.singupError}
-            </Typography>
-          ) : null}
+
           <Typography
             style={{
               marginBottom: 8,

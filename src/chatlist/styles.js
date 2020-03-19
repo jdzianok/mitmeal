@@ -43,12 +43,14 @@ const styles = theme => ({
   },
   textField: {
     margin: "35px",
+
     width: "280px",
     backgroundColor: "#eff4ff",
     borderRadius: "30px",
     [`& fieldset`]: {
       borderRadius: "30px",
-      color: "#3040cb"
+      color: "#3040cb",
+      paddingLeft: "20px"
     }
   },
   lastExchange: {

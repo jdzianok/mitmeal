@@ -16,26 +16,45 @@ const firebase = require("firebase");
 
 class LoginComponent extends Component {
   state = {
-    email: null,
-    password: null,
-    loginError: ""
+    email: "",
+    password: "",
+    loginError: "",
+    emailError: ""
+  };
+
+  validate = () => {
+    this.setState({ emailError: "" });
+    let emailError = "";
+
+    if (!this.state.email.includes("@") && this.state.email.length < 4) {
+      emailError = "Niepoprawny email";
+    }
+
+    if (emailError) {
+      this.setState({ emailError });
+      return false;
+    }
+
+    return true;
   };
 
   submitLogin = e => {
     e.preventDefault();
-
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {
-        this.props.history.push("/dashboard");
-      })
-      .catch(error => {
-        this.setState({
-          loginError: "Server error"
+    const isValid = this.validate();
+    if (isValid) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+          this.props.history.push("/dashboard");
+        })
+        .catch(error => {
+          this.setState({
+            loginError: "Niepoprawne hasło lub login"
+          });
+          console.log(error);
         });
-        console.log(error);
-      });
+    } else return;
   };
 
   userTyping = (type, e) => {
@@ -83,6 +102,15 @@ class LoginComponent extends Component {
                 onChange={e => this.userTyping("email", e)}
               />
             </FormControl>
+            {this.state.emailError ? (
+              <Typography
+                className={classes.errorText}
+                component="h5"
+                variant="h6"
+              >
+                {this.state.emailError}
+              </Typography>
+            ) : null}
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="login-password-input">Hasło</InputLabel>
               <Input
@@ -91,6 +119,15 @@ class LoginComponent extends Component {
                 onChange={e => this.userTyping("password", e)}
               />
             </FormControl>
+            {this.state.loginError ? (
+              <Typography
+                className={classes.errorText}
+                component="h5"
+                variant="h6"
+              >
+                {this.state.loginError}
+              </Typography>
+            ) : null}
             <Button
               type="submit"
               variant="contained"
@@ -100,15 +137,6 @@ class LoginComponent extends Component {
               Zaloguj
             </Button>
           </form>
-          {this.state.loginError ? (
-            <Typography
-              className={classes.errorText}
-              component="h5"
-              variant="h6"
-            >
-              Niepoprawny login lub hasło
-            </Typography>
-          ) : null}
 
           <Typography
             style={{

@@ -25,7 +25,8 @@ const styles = theme => ({
     backgroundColor: "rgba(255, 255, 255, .8)",
     padding: "35px",
     zIndex: "2",
-    borderRadius: "15px"
+    borderRadius: "15px",
+    minWidth: "450px"
   },
   newFriend: {
     position: "absolute",
@@ -42,7 +43,8 @@ const styles = theme => ({
     backgroundColor: "rgba(255, 255, 255, .8)",
     padding: "25px",
     zIndex: "2",
-    borderRadius: "15px"
+    borderRadius: "15px",
+    minWidth: "450px"
   },
   priceQty: {
     display: "flex"
