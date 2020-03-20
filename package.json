@@ -1,8 +1,8 @@
 {
-  "homepage": "./",
   "name": "react_app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jdzianok.github.io/mitmeal/",
   "dependencies": {
     "@material-ui/core": "^4.6.1",
     "@material-ui/icons": "^4.5.1",
@@ -16,11 +16,11 @@
     "surge": "^0.21.3"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
