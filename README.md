@@ -2,7 +2,7 @@
 
 Mitmeal is a web app for restaurant workers. When you are bored with your everyday lunch at work, you can exchange your employee meal with people from other restaurants in the app.
 
-## Take a look at my app [here](https://jdzianok.github.io/chery/)
+## Take a look at my app [here](https://jdzianok.github.io/mitmeal/)
 
 ## How to use
 
