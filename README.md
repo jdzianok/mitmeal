@@ -33,7 +33,7 @@ If you are a new user, there are no friends on the sidebar. You have to create a
 
 ## Preview
 
-<img src="./src/assets/mitmeat_preview.png" width='100%' height='100%' alt='A preview of the app' />
+<img src="./src/assets/mitmeal_preview.png" width='100%' height='100%' alt='A preview of the app' />
 
 ## The app offers basic functionalities
 
