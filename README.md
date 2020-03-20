@@ -12,7 +12,7 @@ It's an exchange app so it works the best with two different users logged in at 
 
 or
 
-use an already existing profile and log in with this credentials (recommended):
+use an already existing profile and log in with this credentials (recommended because of already existing example data):
 
 - user: pasibus@pasibus.pl
 - password: reactapp
