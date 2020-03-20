@@ -43,7 +43,7 @@ If you are a new user, there are no friends on the sidebar. You have to create a
 - exchange form (connected with firebase)
 - choice of acceptance or rejection of the request
 - displaing result
-- order hostory
+- order history
 
 - no RWD (only desktop)
 
