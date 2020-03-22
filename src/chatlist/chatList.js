@@ -42,7 +42,6 @@ class ChatListComponent extends Component {
   };
 
   userIsSender = chat => {
-    // console.log(chat);
     return (
       chat.messages[chat.messages.length - 1].sender === this.props.userEmail
     );

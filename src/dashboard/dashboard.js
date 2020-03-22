@@ -89,8 +89,6 @@ class DashboardComponent extends Component {
         .collection("chats")
         .doc(docKey)
         .update({ receiverHasRead: true });
-    } else {
-      console.log("message where the user was the sender");
     }
   };
 
@@ -101,12 +99,13 @@ class DashboardComponent extends Component {
     );
     this.setState({ newChatFormVisible: false });
     await this.selectChat(this.state.chats.indexOf(chat));
-    this.submitMessage(msg);
+    if (msg !== undefined) {
+      this.submitMessage(msg);
+    }
   };
 
   newChatSubmit = async chatObj => {
     const docKey = this.buildDocKey(chatObj.sendTo);
-    // console.log(chatObj.message);
     await firebase
       .firestore()
       .collection("chats")
@@ -132,8 +131,8 @@ class DashboardComponent extends Component {
         users: [this.state.email, chatObj.sendTo],
         receiverHasRead: false
       });
-    this.setState({ newChatFormVisible: false });
-    this.selectChat(this.state.chats.length - 1);
+
+    this.goToChat(docKey);
   };
 
   componentDidMount = () => {
@@ -146,12 +145,10 @@ class DashboardComponent extends Component {
           .where("users", "array-contains", user.email)
           .onSnapshot(async result => {
             const chats = result.docs.map(doc => doc.data());
-            // console.log(chats);
             await this.setState({
               email: user.email,
               chats: chats
             });
-            // console.log(this.state);
           });
       }
     });
@@ -299,6 +296,7 @@ class DashboardComponent extends Component {
           <NewChatComponent
             goToChatFn={this.goToChat}
             newChatSubmitFn={this.newChatSubmit}
+            // findUserIndexFn={this.findNewUserIndex}
           ></NewChatComponent>
         ) : null}
       </div>

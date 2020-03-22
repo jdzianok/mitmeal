@@ -9,15 +9,16 @@ import {
 } from "@material-ui/core";
 import styles from "./styles";
 
+const initialState = {
+  yourOffer: "",
+  quantityOffer: "",
+  priceOffer: "",
+  wantedMeal: "",
+  howMuchIWant: "",
+  priceWhatIWant: ""
+};
 class ChatTextBoxComponent extends Component {
-  state = {
-    yourOffer: null,
-    quantityOffer: null,
-    priceOffer: null,
-    wantedMeal: null,
-    howMuchIWant: null,
-    priceWhatIWant: null
-  };
+  state = initialState;
 
   userTyping = (type, e) => {
     if (type === "yourOffer") {
@@ -38,6 +39,7 @@ class ChatTextBoxComponent extends Component {
   submitMessage = e => {
     e.preventDefault();
     this.props.submitMessageFn(this.state);
+    this.setState(initialState);
   };
 
   capitalizeFirstLetter = string => {
@@ -45,6 +47,14 @@ class ChatTextBoxComponent extends Component {
   };
 
   render() {
+    const {
+      yourOffer,
+      quantityOffer,
+      priceOffer,
+      wantedMeal,
+      howMuchIWant,
+      priceWhatIWant
+    } = this.state;
     const { classes, user, chat } = this.props;
     return (
       <div className={classes.chatTextBoxContainer}>
@@ -70,6 +80,7 @@ class ChatTextBoxComponent extends Component {
               <InputLabel htmlFor="what-i-offer">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("yourOffer", e)}
+                value={yourOffer}
                 type="text"
                 autoFocus
                 id="what-i-offer"
@@ -80,6 +91,7 @@ class ChatTextBoxComponent extends Component {
                 <InputLabel htmlFor="how-much-i-offer">Ilość</InputLabel>
                 <Input
                   onChange={e => this.userTyping("quantityOffer", e)}
+                  value={quantityOffer}
                   type="number"
                   id="how-much-i-offer"
                   style={{ marginRight: "40px" }}
@@ -91,6 +103,7 @@ class ChatTextBoxComponent extends Component {
                   onChange={e => this.userTyping("priceOffer", e)}
                   type="number"
                   id="price"
+                  value={priceOffer}
                 />
               </FormControl>
             </div>
@@ -103,6 +116,7 @@ class ChatTextBoxComponent extends Component {
               <InputLabel htmlFor="what-i-want">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("wantedMeal", e)}
+                value={wantedMeal}
                 type="text"
                 id="what-i-want"
               />
@@ -112,6 +126,7 @@ class ChatTextBoxComponent extends Component {
                 <InputLabel htmlFor="how-much-do-i-want">Ilość</InputLabel>
                 <Input
                   onChange={e => this.userTyping("howMuchIWant", e)}
+                  value={howMuchIWant}
                   type="number"
                   id="how-much-do-i-want"
                   style={{ marginRight: "40px" }}
@@ -123,6 +138,7 @@ class ChatTextBoxComponent extends Component {
                 </InputLabel>
                 <Input
                   onChange={e => this.userTyping("priceWhatIWant", e)}
+                  value={priceWhatIWant}
                   type="number"
                   id="priceWhatIWant"
                 />

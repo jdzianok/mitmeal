@@ -14,13 +14,13 @@ const firebase = require("firebase");
 
 class NewChatComponent extends Component {
   state = {
-    username: null,
-    yourOffer: null,
-    quantityOffer: null,
-    priceOffer: null,
-    wantedMeal: null,
-    howMuchIWant: null,
-    priceWhatIWant: null
+    username: "",
+    yourOffer: "",
+    quantityOffer: "",
+    priceOffer: "",
+    wantedMeal: "",
+    howMuchIWant: "",
+    priceWhatIWant: ""
   };
 
   userTyping = (type, e) => {
@@ -43,7 +43,6 @@ class NewChatComponent extends Component {
 
   submitNewChat = async e => {
     e.preventDefault();
-    console.log(this.state.message);
     const userExists = await this.userExists();
     if (userExists) {
       const chatExists = await this.chatExists();
@@ -58,8 +57,9 @@ class NewChatComponent extends Component {
     });
   };
 
-  goToChat = () =>
-    this.props.goToChatFn(this.buildDocKey(), this.state.message);
+  goToChat = () => {
+    this.props.goToChatFn(this.buildDocKey(), this.state);
+  };
 
   buildDocKey = () => {
     return [firebase.auth().currentUser.email, this.state.username]
@@ -74,8 +74,6 @@ class NewChatComponent extends Component {
       .collection("chats")
       .doc(docKey)
       .get();
-    console.log(chat);
-    console.log(chat.exists);
     return chat.exists;
   };
 
@@ -92,7 +90,16 @@ class NewChatComponent extends Component {
   };
 
   render() {
+    const {
+      yourOffer,
+      quantityOffer,
+      priceOffer,
+      wantedMeal,
+      howMuchIWant,
+      priceWhatIWant
+    } = this.state;
     const { classes } = this.props;
+
     return (
       <div className={classes.chatTextBoxContainer}>
         <div className={classes.arrowsContainer}>
@@ -124,6 +131,7 @@ class NewChatComponent extends Component {
               <InputLabel htmlFor="what-i-offer">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("yourOffer", e)}
+                value={yourOffer}
                 type="text"
                 id="what-i-offer"
               />
@@ -133,6 +141,7 @@ class NewChatComponent extends Component {
                 <InputLabel htmlFor="how-much-i-offer">Ilość</InputLabel>
                 <Input
                   onChange={e => this.userTyping("quantityOffer", e)}
+                  value={quantityOffer}
                   type="number"
                   id="how-much-i-offer"
                   style={{ marginRight: "40px" }}
@@ -142,6 +151,7 @@ class NewChatComponent extends Component {
                 <InputLabel htmlFor="price">Wartość zamówienia</InputLabel>
                 <Input
                   onChange={e => this.userTyping("priceOffer", e)}
+                  value={priceOffer}
                   type="number"
                   id="price"
                 />
@@ -156,6 +166,7 @@ class NewChatComponent extends Component {
               <InputLabel htmlFor="what-i-want">Nazwa dania</InputLabel>
               <Input
                 onChange={e => this.userTyping("wantedMeal", e)}
+                value={wantedMeal}
                 type="text"
                 id="what-i-want"
               />
@@ -165,6 +176,7 @@ class NewChatComponent extends Component {
                 <InputLabel htmlFor="how-much-do-i-want">Ilość</InputLabel>
                 <Input
                   onChange={e => this.userTyping("howMuchIWant", e)}
+                  value={howMuchIWant}
                   type="number"
                   id="how-much-do-i-want"
                   style={{ marginRight: "40px" }}
@@ -176,6 +188,7 @@ class NewChatComponent extends Component {
                 </InputLabel>
                 <Input
                   onChange={e => this.userTyping("priceWhatIWant", e)}
+                  value={priceWhatIWant}
                   type="number"
                   id="priceWhatIWant"
                 />
