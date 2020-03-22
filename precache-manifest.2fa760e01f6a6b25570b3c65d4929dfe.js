@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2bd4faae0d534af1e031d68264655252",
+    "revision": "77bc2582d41a3c5629776b43a17de889",
     "url": "/mitmeal/index.html"
   },
   {
-    "revision": "0f2a799fe3f0fce2fcb4",
+    "revision": "bb09d00ad3a4cb1692fe",
     "url": "/mitmeal/static/css/main.b05e1aeb.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mitmeal/static/js/2.5a8250cb.chunk.js"
   },
   {
-    "revision": "0f2a799fe3f0fce2fcb4",
-    "url": "/mitmeal/static/js/main.79ca4546.chunk.js"
+    "revision": "bb09d00ad3a4cb1692fe",
+    "url": "/mitmeal/static/js/main.925833ba.chunk.js"
   },
   {
     "revision": "217d814fa6652454fa6b",
